@@ -1,6 +1,14 @@
+$( document ).ready(function() {
 /*
  * Create a list that holds all of your cards
  */
+
+// get the icons classes
+let cardsArr = ['fa-diamond', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-paper-plane-o'];
+// duplicate the icons classes
+cardsArr = cardsArr.concat(cardsArr);
+//send the classes to the shuffle function
+let shuffledArr = shuffle(cardsArr);
 
 
 /*
@@ -25,6 +33,71 @@ function shuffle(array) {
     return array;
 }
 
+// get the ul of the cards and empty it
+let arrOfClicked = [];
+function reset(){
+
+  let moves = 0;
+  $("#moves").text(moves);
+
+  let cardsWrapper = $('#deck');
+  cardsWrapper.empty();
+
+  for (let i=1; i<= shuffledArr.length; i++){
+    let liStructure = $('<li class="card"></li>');
+    let iconElement = $('<i class="fa"></i>');
+    iconElement.addClass(shuffledArr[i]);
+
+    liStructure.append(iconElement);
+    cardsWrapper.append(liStructure);
+
+    liStructure.click(function() {
+      $(this).addClass("open show");
+      let iconClasses = $(this).children().attr("class");
+      arrOfClicked.push(iconClasses);
+      console.log(arrOfClicked);
+
+      if(arrOfClicked.length < 2){
+        
+      }
+      // if there are two clicked cards
+      else if(arrOfClicked.length === 2){
+        moves = moves + 1;
+        $("#moves").text(moves);
+        
+        // check if they match
+        if(arrOfClicked[0] === arrOfClicked[1] ){
+          matchedClass = arrOfClicked[0];
+          // get their parents to add class matched
+          $( "i.fa" ).each(function( index ) {
+            if ($(this).hasClass(matchedClass)){
+              $(this).parent().addClass("open show match");
+            }
+          });
+        }
+        // else if they don't match
+        else{
+          // get their parent to remove class show
+          setTimeout(function() {
+            $( "i.fa" ).each(function( index ) {  
+              $(this).parent().removeClass("show open");
+            });
+          }, 1500);
+          
+        }
+        arrOfClicked = [];
+      }
+    });  
+  }
+
+  
+};
+
+reset();
+
+$("#restart").click(function() {
+  reset();
+});
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +109,4 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+});
