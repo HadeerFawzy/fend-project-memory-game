@@ -36,6 +36,7 @@ $( document ).ready(function() {
 	// get the ul of the cards and empty it
 	let arrOfClicked = [];
 
+	// get the ul of the cards and empty it
 	function reset(){
 
 	  let moves = 0;
@@ -52,12 +53,13 @@ $( document ).ready(function() {
 	    liStructure.append(iconElement);
 	    cardsWrapper.append(liStructure);
 
+	    console.log(arrOfClicked.length);
+
 	    liStructure.click(function() {
+
 	      $(this).addClass("open show");
 	      let iconClasses = $(this).children().attr("class");
 	      arrOfClicked.push(iconClasses);
-
-	      console.log(arrOfClicked);
 
 	      // if there are two clicked cards
 	      if(arrOfClicked.length === 2){
@@ -77,15 +79,9 @@ $( document ).ready(function() {
 	        // else if they don't match
 	        else{
 	          // get their parent to remove class show
-	          // setTimeout(function() {
-	          //   $( "i.fa" ).each(function( index ) {
-	          //     $(this).parent().removeClass("show open");
-	          //   });
-	          // }, 1500);
-	          $( "i.fa" ).each(function( index ) {
-	            $(this).parent().removeClass("show open");
-	          });
-
+	          setTimeout(function() {
+	          	$(".card.show.open").removeClass("show open");
+	          }, 500);
 	        }
 	        arrOfClicked = [];
 	      }
