@@ -10,9 +10,6 @@ $( document ).ready(function() {
 	 * Create a list that holds all of your cards
 	 */
 	function getCards() {
-		// hide all the stars at first
-		// $(".fa-star").css('display', 'none');
-
 		// get the icons classes
 		let cardsArr = ['fa-diamond', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-paper-plane-o'];
 
@@ -41,9 +38,9 @@ $( document ).ready(function() {
 	    return array;
 	}
 
-
 	// function draw the DOM
 	function drawDom (array) {
+    resetMoves();
 		$("#deck").empty();
 		var ul = $("#deck");
 
@@ -96,7 +93,6 @@ $( document ).ready(function() {
 		}
 	}
 
-
 	// if opened cards matched
 	function match(firstCard, secondCard){
 		firstCard.addClass('match');
@@ -116,19 +112,18 @@ $( document ).ready(function() {
 
 	getCards();
 
-	// restart btn
-	$("#restart").on("click",function() {
-		getCards();
-		clearTimer();
-		timer();
-  });
+	// reset moves number
+  function resetMoves(){
+    var moves = 0;
+    $("#moves").text(moves);
+    return moves;
+  }
 
-	// moves number
-	var moves = 0;
-	$("#moves").text(moves);
-	function movesIcrease() {
-		moves = moves + 1;
-		$("#moves").text(moves);
+  // moves number increasing
+  var movesNumber = resetMoves();
+  function movesIcrease() {  
+		movesNumber = movesNumber + 1;
+		$("#moves").text(movesNumber);
 	};
 
 	// check if all matches, restart the game
@@ -140,6 +135,7 @@ $( document ).ready(function() {
 			setTimeout(function(){
 				getCards ();
 				clearTimer();
+        resetMoves();
 			}, 400);
 		}else{
 			matchedTimes = matchedTimes + 1;
@@ -174,6 +170,7 @@ $( document ).ready(function() {
 
 	// rating function
 	function rate(){
+    moves = resetMoves();
 		$(".fa-star").each(function(index) {
 		  if(moves <= 14){
 		  	$(this).css('display', 'block');
@@ -189,6 +186,13 @@ $( document ).ready(function() {
 		});
 	}
 
+  // restart btn
+  $("#restart").on("click",function() {
+    getCards();
+    clearTimer();
+    timer();
+    resetMoves();
+  });
 	/*
 	 * set up the event listener for a card. If a card is clicked:
 	 *  - display the card's symbol (put this functionality in another function that you call from this one)
