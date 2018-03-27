@@ -133,9 +133,7 @@ $( document ).ready(function() {
 			console.log("CONGRATULATIONS You Won *****");
 			rate();
 			setTimeout(function(){
-				getCards ();
-				clearTimer();
-        resetMoves();
+				congratulation();
 			}, 400);
 		}else{
 			matchedTimes = matchedTimes + 1;
@@ -186,13 +184,25 @@ $( document ).ready(function() {
 		});
 	}
 
-  // restart btn
-  $("#restart").on("click",function() {
-    getCards();
-    clearTimer();
-    timer();
-    resetMoves();
+  // reset btn
+  $( ".resetBtn" ).each(function(index) {
+    $(this).on("click", function(){
+      getCards();
+      clearTimer();
+      timer();
+      resetMoves();
+      $("#modalContainer").css('display', 'none');
+    });
   });
+
+  // function show congratulation modal 
+  function congratulation() {
+    $("#modalContainer").css('display', 'block');
+  }
+
+
+
+
 	/*
 	 * set up the event listener for a card. If a card is clicked:
 	 *  - display the card's symbol (put this functionality in another function that you call from this one)

@@ -94,7 +94,7 @@ h1 {
 .timerWrapper {
     display: inline-block;
     float: right;
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
 .timerWrapper h1 {
@@ -119,5 +119,44 @@ h1 {
 
 .score-panel .restart {
     float: right;
+    cursor: pointer;
+}
+
+/*modal*/
+.modalContainer {
+    position: absolute;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 5%;
+    display: none;
+}
+
+.modalContainer .modal {
+    background-image: url('../img/geometry2.png');
+    background-color: #689494;
+    background-blend-mode: multiply;
+    color: #fff;
+    width: 70%;
+    margin: 0px auto;
+    height: 300px;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.modalContainer .modal h1 {
+
+}
+
+.modalContainer .modal .resetBtn {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #689494;
     cursor: pointer;
 }
