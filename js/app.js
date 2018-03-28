@@ -174,21 +174,36 @@ $( document ).ready(function() {
 	}
 
 	function stopTimer() {
+    var finalSeconds = seconds;
+    var finalMinutes = minutes;
+    var finalHours = hours;
+    $("#finalTime").text((finalHours ? (finalHours > 9 ? finalHours : "0" + finalHours) : "00") + ":" + (finalMinutes ? (finalMinutes > 9 ? finalMinutes : "0" + finalMinutes) : "00") + ":" + (finalSeconds > 9 ? finalSeconds : "0" + finalSeconds));
     clearTimeout(t);
 	}
 
 	// rating function
+  var rateStars = 3;
 	function rate(movesNum){
     let moves = movesNum;
     if(moves <= 14){
-
+      rateStars = 3;
 		}else if((moves>14) && (moves<=20)){
-			$(".fa-star").eq( 2 ).css('display', 'none');
+			rateStars = 2;
 		}else if(moves>20){
-			$(".fa-star").eq( 1 ).css('display', 'none');
-			$(".fa-star").eq( 2 ).css('display', 'none');
+			rateStars = 1;
 		}
+    drawStars(rateStars);
 	}
+
+  function drawStars(NumOfStars){
+    $(".stars").each(function( index ) {
+      $(this).empty();
+      for(var i = 0; i < NumOfStars; i++){
+        var star = '<li><i class="fa fa-star"></i></li>';
+        $(this).append(star);
+      }
+    });
+  }
 
 	function showAllStars() {
 		$(".fa-star").each(function(index, el) {
@@ -204,6 +219,8 @@ $( document ).ready(function() {
       timer();
       resetMoves();
       showAllStars();
+      rateStars = 3;
+      drawStars(rateStars);
       matchedTimes = 1;
       $("#modalContainer").css('display', 'none');
     });
@@ -212,15 +229,6 @@ $( document ).ready(function() {
   // function show congratulation modal
   function congratulation() {
   	stopTimer();
-
-  	var finalTime = $("#timer").innerHTML;
-  	console.log(finalTime);
-  	$("#finalTime").append(finalTime);
-
-  	var finalRate = $("#finalRate").innerHTML;
-  	console.log(finalRate);
-  	$("#finalRate").append(finalRate);
-
     $("#modalContainer").css('display', 'block');
   }
 

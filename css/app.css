@@ -160,3 +160,10 @@ h1 {
     color: #689494;
     cursor: pointer;
 }
+
+.modalContainer .modal ul {
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
