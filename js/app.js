@@ -112,16 +112,17 @@ $( document ).ready(function() {
 
 	getCards();
 
+	var movesNumber = resetMoves();
+
 	// reset moves number
   function resetMoves(){
-    var moves = 0;
-    $("#moves").text(moves);
-    return moves;
+    movesNumber = 0;
+    $("#moves").text(movesNumber);
+    return movesNumber;
   }
 
   // moves number increasing
-  var movesNumber = resetMoves();
-  function movesIcrease() {  
+  function movesIcrease() {
 		movesNumber = movesNumber + 1;
 		$("#moves").text(movesNumber);
 	};
@@ -195,7 +196,7 @@ $( document ).ready(function() {
     });
   });
 
-  // function show congratulation modal 
+  // function show congratulation modal
   function congratulation() {
     $("#modalContainer").css('display', 'block');
   }
