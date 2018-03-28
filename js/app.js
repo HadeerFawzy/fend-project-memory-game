@@ -125,13 +125,14 @@ $( document ).ready(function() {
   function movesIcrease() {
 		movesNumber = movesNumber + 1;
 		$("#moves").text(movesNumber);
+		rate(movesNumber);
 	};
 
 	// check if all matches, restart the game
 	var matchedTimes = 1;
 	function checkEndOfGame() {
 		if(matchedTimes === 8) {
-			console.log("CONGRATULATIONS You Won *****");
+			console.log(matchedTimes);
 			rate();
 			setTimeout(function(){
 				congratulation();
@@ -158,30 +159,40 @@ $( document ).ready(function() {
     $("#timer").text((hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds));
     timer();
 	}
+
 	function timer() {
 	  t = setTimeout(add, 1000);
 	}
-	timer();
+
+	clearTimer();
+  timer();
+
 	function clearTimer() {
 		$("#timer").text("00:00:00");
+    clearTimeout(t);
     seconds = 0; minutes = 0; hours = 0;
 	}
 
+	function stopTimer() {
+    clearTimeout(t);
+	}
+
 	// rating function
-	function rate(){
-    moves = resetMoves();
-		$(".fa-star").each(function(index) {
-		  if(moves <= 14){
-		  	$(this).css('display', 'block');
-			}else if((moves>14) && (moves<=20)){
-				if(index <= 1){
-					$(this).css('display', 'block');
-				}
-			}else{
-				if(index === 0){
-					$(this).css('display', 'block');
-				}
-			}
+	function rate(movesNum){
+    let moves = movesNum;
+    if(moves <= 14){
+
+		}else if((moves>14) && (moves<=20)){
+			$(".fa-star").eq( 2 ).css('display', 'none');
+		}else if(moves>20){
+			$(".fa-star").eq( 1 ).css('display', 'none');
+			$(".fa-star").eq( 2 ).css('display', 'none');
+		}
+	}
+
+	function showAllStars() {
+		$(".fa-star").each(function(index, el) {
+			$(this).css('display', 'block');
 		});
 	}
 
@@ -192,12 +203,24 @@ $( document ).ready(function() {
       clearTimer();
       timer();
       resetMoves();
+      showAllStars();
+      matchedTimes = 1;
       $("#modalContainer").css('display', 'none');
     });
   });
 
   // function show congratulation modal
   function congratulation() {
+  	stopTimer();
+
+  	var finalTime = $("#timer").innerHTML;
+  	console.log(finalTime);
+  	$("#finalTime").append(finalTime);
+
+  	var finalRate = $("#finalRate").innerHTML;
+  	console.log(finalRate);
+  	$("#finalRate").append(finalRate);
+
     $("#modalContainer").css('display', 'block');
   }
 
