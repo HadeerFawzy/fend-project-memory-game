@@ -135,6 +135,7 @@ $( document ).ready(function() {
 			console.log(matchedTimes);
 			rate();
 			setTimeout(function(){
+				$("#finalMoves").text(movesNumber);
 				congratulation();
 			}, 400);
 		}else{
